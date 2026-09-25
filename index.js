@@ -1,4 +1,4 @@
-"use strict"; //Renere kode og fanger typiske fejl tidligt
+"use strict"; //Renere kode og fanger fejl tidligt
 console.log("index.js is connected"); // tester som det hele fungere ift tidligee fejl
 const productUrl = "https://kea-alt-del.dk/t7/api/categories"; //KEA's API i en konstant variabel
 const categoryList = document.querySelector(".category_list"); ///Hvor på websiden det skal indsætte de kategorier, der hentes fra API'et
