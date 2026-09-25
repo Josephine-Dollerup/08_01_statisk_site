@@ -37,3 +37,5 @@ function showProducts(products) {
 }
 // Kalder functionen
 getData(productURL);
+
+// tilføje til main
