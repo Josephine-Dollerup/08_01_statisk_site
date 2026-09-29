@@ -23,7 +23,7 @@ function showData(data) {
     console.log(categorie); //indsætter navnet på den aktuelle kategori direkte i HTML-skabelonen (kaldet en template literal, som skrives med backticks
     //Det gør din side dynamisk! Uanset om API'et returnerer 5 eller 50 kategorier, opretter koden automatisk en HTML-blok for hver enkelt uden hårdkodning.
     myInnerHTML += `<div class="category_list_container">
-                <a href="produktliste.html">
+                <a href="produktliste.html?category=${categorie.category}">
                     <h3>${categorie.category}</h3>
                 </a>
             </div>`;

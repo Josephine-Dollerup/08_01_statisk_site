@@ -1,8 +1,11 @@
-const productURL = "https://kea-alt-del.dk/t7/api/products";
+const param = new URLSearchParams(window.location.search);
+// New URLSearchParams(...) gør den del nem at læse
+const selectedSeasons = param.get("category");
+// params.get(“category”) finder værdien til category
+
+const productURL = `https://kea-alt-del.dk/t7/api/products?category=${selectedSeasons}&limit=100`;
 const listContainer = document.querySelector(".container"); // Henter diven men informationerne, så js, ved for agruemnterne kommer fra.
 
-const param = new URLSearchParams(window.location.search);
-const selectedSeasons = param.get("season");
 console.log("selectedSeasons", selectedSeasons);
 
 // Opret functionen
@@ -37,7 +40,7 @@ function showProducts(products) {
           <p>${product.price} kr ${product.discount ? "-" + product.discount + "%" : ""}</p>
          <div>
         <p class="soldout_tag">Sold Out</p>
-        <a href="produkt.html">Læs mere</a>
+        <a href="detailview.html">Læs mere</a>
     </article>`;
   });
   //   Vi skriver "products", fordi det flere produkter, men når vi laver forEach, skal vi skrive "product" for vi skal have fat i et produkt
