@@ -1,9 +1,23 @@
 const param = new URLSearchParams(window.location.search);
-// New URLSearchParams(...) gør den del nem at læse
+// New URLSearchParams(...) er et indbygget JavaScript-værktøj, der tager query-strengen og gør den nem at arbejde med som et objekt
+//window.location.search - Returnerer den del af sidens webadresse (URL), der starter med et spørgsmålstegn ?.
+// Dette kaldes en query string eller et URL-parameter.
+
 const selectedSeasons = param.get("category");
 // params.get(“category”) finder værdien til category
+//.get("navn"): En metode på URLSearchParams-objektet, der udtrækker værdien for en bestemt nøgle (key)
 
 const productURL = `https://kea-alt-del.dk/t7/api/products?category=${selectedSeasons}&limit=100`;
+// Backticks (`): Bruges til at skrive en dynamisk streng (Template Literal).
+// ${selectedSeasons}: Indsætter værdien af variablen selectedSeasons direkte i URL-strengen.
+// Formål: URL'en sendes til et API for kun at hente produkter fra den valgte kategori, begrænset til op til 100 produkter (limit=100)
+
+// **** hvad sker der egenlig ***///
+// En bruger klikker på et link, der fører til en side med URL'en: produktliste.html?category=Apparel
+// param.get("category") opfanger værdien "Apparel".
+// productURL sammensættes til:"[https://kea-alt-del.dk/t7/api/products?category=Apparel&limit=100](https://kea-alt-del.dk/t7/api/products?category=Apparel&limit=100)"
+// Denne adresse kan herefter bruges i f.eks. et fetch(productURL)-kald til at hente dataene
+
 const listContainer = document.querySelector(".container"); // Henter diven men informationerne, så js, ved for agruemnterne kommer fra.
 
 console.log("selectedSeasons", selectedSeasons);
@@ -18,7 +32,7 @@ function getData(url) {
   });
 }
 
-// Hvad sker der under fetch
+// **** Hvad sker der under fetch **** //
 // Når du henter data med fetch(), bruges .then() til at vente på det asynkrone svar fra serveren uden at fryse programmet.
 // Den første .then() modtager et response-objekt med det rå svar og konverterer det fra JSON til et JavaScript-objekt,
 // via response.json().
@@ -40,7 +54,7 @@ function showProducts(products) {
           <p>${product.price} kr ${product.discount ? "-" + product.discount + "%" : ""}</p>
          <div>
         <p class="soldout_tag">Sold Out</p>
-        <a href="detailview.html">Læs mere</a>
+        <a href="detailview.html?id=${product.id}">Læs mere</a>
     </article>`;
   });
   //   Vi skriver "products", fordi det flere produkter, men når vi laver forEach, skal vi skrive "product" for vi skal have fat i et produkt

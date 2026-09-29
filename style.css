@@ -196,6 +196,8 @@ main {
 .product_specifications ul {
   display: block;
 }
+.button {
+}
 
 /* Desktop */
 @media (min-width: 768px) {

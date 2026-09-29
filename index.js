@@ -1,5 +1,6 @@
 "use strict"; //Renere kode og fanger fejl tidligt
 console.log("index.js is connected"); // tester som det hele fungere ift tidligee fejl
+
 const productUrl = "https://kea-alt-del.dk/t7/api/categories"; //KEA's API i en konstant variabel
 const categoryList = document.querySelector(".category_list"); ///Hvor på websiden det skal indsætte de kategorier, der hentes fra API'et
 
@@ -23,10 +24,10 @@ function showData(data) {
     console.log(categorie); //indsætter navnet på den aktuelle kategori direkte i HTML-skabelonen (kaldet en template literal, som skrives med backticks
     //Det gør din side dynamisk! Uanset om API'et returnerer 5 eller 50 kategorier, opretter koden automatisk en HTML-blok for hver enkelt uden hårdkodning.
     myInnerHTML += `<div class="category_list_container">
-                <a href="produktliste.html?category=${categorie.category}">
-                    <h3>${categorie.category}</h3>
-                </a>
-            </div>`;
+     <a href="produktliste.html?category=${categorie.category}">
+     <h3>${categorie.category}</h3>
+     </a>
+     </div>`;
   });
   categoryList.innerHTML = myInnerHTML;
   // Hvad: Indsætter hele den samlede HTML-streng i dit DOM-element på websiden.
