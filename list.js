@@ -22,6 +22,37 @@ const listContainer = document.querySelector(".container"); // Henter diven men 
 
 console.log("selectedSeasons", selectedSeasons);
 
+/// fra undervisningen d. 1 okt - filtering af proukter - navne skal være lavet om så det passer til vires json og butoon navne.
+
+// let allData;
+// // Vi laver let fordi vi skal lave en variabel der kan ændres, og vi skal bruge den i flere funktioner.
+
+// console.log(
+//   "querySelectorall",
+//   document.querySelectorAll(".Buttons_container button").forEach((btn) => {
+//     console.log("For each", btn);
+//     btn.addEventListener("click", btnklick);
+//   }),
+// );
+// // Når vi bruger document.querySelectorAll laver den en nodeList i konsollen med alle knapperne i Buttons_container.
+// // Vi kan bruge den til at tilføje eventlisteners til alle knapperne.
+// // Grunden til vi gør det er fordi vi vil gerne have at alle knapperne kan filtrere dataen, og vi vil gerne have at alle knapperne kan bruges til at filtrere dataen.
+
+// function btnklick(evt) {
+//   console.log("Knap er klikket på", evt.target);
+//   console.log("Hvad er dataet", evt.target.dataset.filter);
+//   document.querySelectorAll(".Buttons_container button").forEach((btn) => {
+//     btn.classList = "";
+//   });
+//   evt.target.classList.add("active_btn");
+//   const filterArr = allData.filter((car) => car.motor === evt.target.dataset.filter);
+//   console.log("Filtered Array", filterArr);
+//   if (evt.target.dataset.filter === "ALL") {
+//     showCars(allData);
+//   } else {
+//     showCars(filterArr);
+//   }
+// }
 // Opret functionen
 function getData(url) {
   fetch(url).then((response) => {
