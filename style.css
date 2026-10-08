@@ -171,6 +171,41 @@ main {
   color: white;
 }
 
+/* Knapper - filtering og sorting */
+.back_btn {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.list_button {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.list_button:active {
+  background-color: lightgray;
+}
+
+.list_button.selcted {
+  background-color: gray;
+}
+
+.sorting_pris {
+  background-color: black;
+  color: white;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-block: 1rem;
+}
+
 /***** Produktside ******/
 /* Mobil */
 @media (max-width: 768px) {
@@ -195,8 +230,6 @@ main {
 }
 .product_specifications ul {
   display: block;
-}
-.button {
 }
 
 /* Desktop */

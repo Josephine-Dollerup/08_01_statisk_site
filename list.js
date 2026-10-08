@@ -11,7 +11,6 @@ const productURL = `https://kea-alt-del.dk/t7/api/products?category=${selectedSe
 // Backticks (`): Bruges til at skrive en dynamisk streng (Template Literal).
 // ${selectedSeasons}: Indsætter værdien af variablen selectedSeasons direkte i URL-strengen.
 // Formål: URL'en sendes til et API for kun at hente produkter fra den valgte kategori, begrænset til op til 100 produkter (limit=100)
-
 // **** hvad sker der egenlig ***///
 // En bruger klikker på et link, der fører til en side med URL'en: produktliste.html?category=Apparel
 // param.get("category") opfanger værdien "Apparel".
@@ -24,41 +23,67 @@ console.log("selectedSeasons", selectedSeasons);
 
 /// fra undervisningen d. 1 okt - filtering af proukter - navne skal være lavet om så det passer til vires json og butoon navne.
 
-// let allData;
-// // Vi laver let fordi vi skal lave en variabel der kan ændres, og vi skal bruge den i flere funktioner.
+let allData;
+// Vi laver let fordi vi skal lave en variabel der kan ændres, og vi skal bruge den i flere funktioner.
 
-// console.log(
-//   "querySelectorall",
-//   document.querySelectorAll(".Buttons_container button").forEach((btn) => {
-//     console.log("For each", btn);
-//     btn.addEventListener("click", btnklick);
-//   }),
-// );
-// // Når vi bruger document.querySelectorAll laver den en nodeList i konsollen med alle knapperne i Buttons_container.
-// // Vi kan bruge den til at tilføje eventlisteners til alle knapperne.
-// // Grunden til vi gør det er fordi vi vil gerne have at alle knapperne kan filtrere dataen, og vi vil gerne have at alle knapperne kan bruges til at filtrere dataen.
+/// **** BACK BUTTON **** ///
+document.querySelector(".back_btn").addEventListener("click", (event) => {
+  window.history.back();
+});
 
-// function btnklick(evt) {
-//   console.log("Knap er klikket på", evt.target);
-//   console.log("Hvad er dataet", evt.target.dataset.filter);
-//   document.querySelectorAll(".Buttons_container button").forEach((btn) => {
-//     btn.classList = "";
-//   });
-//   evt.target.classList.add("active_btn");
-//   const filterArr = allData.filter((car) => car.motor === evt.target.dataset.filter);
-//   console.log("Filtered Array", filterArr);
-//   if (evt.target.dataset.filter === "ALL") {
-//     showCars(allData);
-//   } else {
-//     showCars(filterArr);
-//   }
-// }
-// Opret functionen
+/// **** FILTERING AF GENDER **** ///
+const filterGenderButtons = document.querySelectorAll(".filter_gender_buttons_container div");
+filterGenderButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    filterGenderButtons.forEach((button) => {
+      button.classList.remove("selected");
+    });
+    event.target.classList.add("selected");
+
+    if (event.target.dataset.filter === "All") {
+      showProducts(allData);
+    } else {
+      const filter = allData.filter((product) => {
+        return product.gender === event.target.dataset.filter;
+      });
+      showProducts(filter);
+    }
+  });
+});
+/// **** CATEGORY **** ///
+const filterCategoryButtons = document.querySelectorAll(".filter_category_buttons_container div");
+filterCategoryButtons.forEach((button) => {
+  if (button.dataset.category === selectedSeasons) {
+    button.classList.add("selected");
+  }
+
+  button.addEventListener("click", (event) => {
+    window.location.href = `produktliste.html?category=${event.target.dataset.category}`;
+  });
+});
+/// **** SORTING IFT PRISER **** ///
+const sortButton = document.querySelector(".sorting_pris");
+sortButton.addEventListener("click", (event) => {
+  // Implementation for sorting products
+  const sortedData = allData.sort((a, b) => {
+    // Her laver vi en konstant om at der skal sorteres efter pris i stigende rækkefølge
+    const aktualPriceA = a.discount ? getDiscountPrice(a.price, a.discount) : a.price;
+    const aktualPriceB = b.discount ? getDiscountPrice(b.price, b.discount) : b.price;
+    // Har a og b discount, hvis mig discount, hvis ikke vis mig bare den oprindelig pris.
+
+    return aktualPriceA - aktualPriceB;
+    // Sorter efter pris i stigende rækkefølge - a skal være negativt ift b og derfor skal a komme før b.
+  });
+  showProducts(sortedData);
+});
+
+// ******* OPRET FETCH ******* //
 function getData(url) {
   fetch(url).then((response) => {
     response.json().then((data) => {
-      showProducts(data); // bliver vist i html
-      //   console.log("data", data); - gør det bliver vist i konsollen
+      allData = data;
+      showProducts(allData); // bliver vist i html
+      //console.log("data", data);  - gør det bliver vist i konsollen
     });
   });
 }
@@ -68,6 +93,8 @@ function getData(url) {
 // Den første .then() modtager et response-objekt med det rå svar og konverterer det fra JSON til et JavaScript-objekt,
 // via response.json().
 // I den næste .then() modtages de færdige data, som du derefter kan bruge i din kode.
+
+/// **** DYNAMISK INDHOLD **** ///
 
 function showProducts(products) {
   console.log("First product", products[0]);
